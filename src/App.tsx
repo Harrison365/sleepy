@@ -1,6 +1,8 @@
 import "./App.css";
 import { useState } from "react";
-import axios from "axios";
+import hostedGet from "../utils/hostedGet";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function App() {
   const [response, setResponse] = useState();
@@ -10,11 +12,7 @@ function App() {
   console.log(method, url);
   const fetchData = async () => {
     try {
-      const { data } = await axios({
-        method,
-        url,
-      });
-      setResponse(data);
+      hostedGet(method, url, setResponse);
     } catch (error: any) {
       setResponse(error.message);
     }
@@ -50,9 +48,11 @@ function App() {
         GO!
       </button>
       {/* code block */}
-      <pre>
-        <code>{JSON.stringify(response, null, 2)}</code>
-      </pre>
+      <div style={{ overflow: "auto", maxHeight: "600px" }}>
+        <SyntaxHighlighter language="json" style={vscDarkPlus}>
+          {JSON.stringify(response, null, 2)}
+        </SyntaxHighlighter>
+      </div>
     </>
   );
 }
