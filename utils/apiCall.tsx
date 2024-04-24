@@ -1,5 +1,5 @@
 import axios from "axios";
-const hostedGet = async (
+const apiCall = async (
   method: string,
   url: string,
   setResponse: (data: any) => void
@@ -11,4 +11,4 @@ const hostedGet = async (
   setResponse(data);
 };
 
-export default hostedGet;
+export default apiCall;

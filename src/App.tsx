@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState } from "react";
-import hostedGet from "../utils/hostedGet";
+import apiCall from "../utils/apiCall";
 // @ts-ignore
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 // @ts-ignore
@@ -14,7 +14,7 @@ function App() {
   console.log(method, url);
   const fetchData = async () => {
     try {
-      hostedGet(method, url, setResponse);
+      apiCall(method, url, setResponse);
     } catch (error: any) {
       setResponse(error.message);
     }
