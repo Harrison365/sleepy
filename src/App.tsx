@@ -1,7 +1,9 @@
 import "./App.css";
 import { useState } from "react";
 import hostedGet from "../utils/hostedGet";
+// @ts-ignore
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+// @ts-ignore
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function App() {
