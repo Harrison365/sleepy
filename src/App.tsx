@@ -49,6 +49,8 @@ function App() {
       >
         GO!
       </button>
+      <br />
+      {method === "patch" || method === "post" ? <textarea></textarea> : null}
       {/* code block */}
       <div style={{ overflow: "auto", maxHeight: "600px" }}>
         <SyntaxHighlighter language="json" style={vscDarkPlus}>
