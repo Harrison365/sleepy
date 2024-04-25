@@ -22,6 +22,7 @@ function App() {
 
   return (
     <>
+      <h1>Difficulty Sleeping</h1>
       <select
         value={method}
         onChange={(e) => {
