@@ -7,19 +7,35 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 function App() {
-  const [response, setResponse] = useState();
+  const [response, setResponse] = useState("Please make your API call :)");
   const [method, setMethod] = useState("get");
   const [url, setUrl] = useState("");
+  const [requestBody, setRequestBody] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  console.log(method, url);
+  console.log("https://jsonplaceholder.typicode.com/posts", {
+    username: "grumpy19",
+    body: "This is my pushed comment",
+  });
+  console.log(method, url, requestBody);
+
   const fetchData = async () => {
-    try {
-      apiCall(method, url, setResponse);
-    } catch (error: any) {
-      setResponse(error.message);
+    if (!url) {
+      setResponse("URL is required");
+    } else {
+      setIsLoading(true);
+      await apiCall(method, url, setResponse, requestBody);
+      setIsLoading(false);
     }
   };
-
+  if (isLoading) {
+    return (
+      <div>
+        <h1>Difficulty Sleeping</h1>
+        <p>Loading...</p>
+      </div>
+    );
+  }
   return (
     <>
       <h1>Difficulty Sleeping</h1>
@@ -50,10 +66,25 @@ function App() {
       >
         GO!
       </button>
+      <button
+        onClick={() => {
+          setUrl("");
+        }}
+      >
+        Clear
+      </button>
       <br />
-      {method === "patch" || method === "post" ? <textarea></textarea> : null}
+      {method === "patch" || method === "post" ? (
+        <textarea
+          value={requestBody}
+          onChange={(e) => {
+            setRequestBody(e.target.value);
+          }}
+        ></textarea>
+      ) : null}
+
       {/* code block */}
-      <div style={{ overflow: "auto", maxHeight: "600px" }}>
+      <div style={{ overflow: "auto", height: "50%" }}>
         <SyntaxHighlighter language="json" style={vscDarkPlus}>
           {JSON.stringify(response, null, 2)}
         </SyntaxHighlighter>
