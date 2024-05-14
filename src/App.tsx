@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import apiCall from "../utils/apiCall";
+import LocalApiCall from "../utils/localApiCall";
 // @ts-ignore
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 // @ts-ignore
@@ -24,7 +25,11 @@ function App() {
       setResponse("URL is required");
     } else {
       setIsLoading(true);
-      await apiCall(method, url, setResponse, requestBody);
+      if (/local/.test(url)) {
+        await LocalApiCall(method, url, setResponse, requestBody);
+      } else {
+        await apiCall(method, url, setResponse, requestBody);
+      }
       setIsLoading(false);
     }
   };
